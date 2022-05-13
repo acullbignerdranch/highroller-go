@@ -9,10 +9,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"highroller-go/src/data"
 	"log"
+	"os"
 	"time"
 )
 
-var dataBaseUri = "mongodb://localhost:27017"
+var dataBaseUri = os.Getenv("MONGODB_URI")
 var databaseName = "highroller"
 
 func Close(client *mongo.Client, ctx context.Context,
