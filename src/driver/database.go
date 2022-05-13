@@ -30,7 +30,7 @@ func Connect(uri string) (*mongo.Client, context.Context,
 	context.CancelFunc, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(),
-		30*time.Second)
+		5*time.Second)
 
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
 	return client, ctx, cancel, err

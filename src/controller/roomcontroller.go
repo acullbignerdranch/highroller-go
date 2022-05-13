@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 func HandleRouters() {
@@ -20,7 +21,11 @@ func HandleRouters() {
 	myRouter.HandleFunc("/user/{userId}", getUser).Methods("GET")
 	myRouter.HandleFunc("/user/{userId}/room", deleteRoom).Methods("DELETE")
 	myRouter.HandleFunc("/user", createUser).Methods("POST")
-	log.Fatal(http.ListenAndServe(":10000", myRouter))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "10000" // Default port if not specified
+	}
+	log.Fatal(http.ListenAndServe(port, myRouter))
 }
 
 func getRoom(w http.ResponseWriter, r *http.Request) {
