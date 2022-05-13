@@ -27,10 +27,18 @@ func ReadRooms(userId string) []data.Room {
 
 func JoinRoom(room data.Room, userId string) data.Room {
 	savedRoom := ReadRoom(room.RoomId)
-	savedMembers := append(savedRoom.Members, userId)
+	var savedMembers []string
+	if savedRoom.Members != nil {
+		savedMembers = append(savedRoom.Members, userId)
+	} else {
+		savedMembers = append(savedMembers, userId)
+	}
+	savedRoom.Members = savedMembers
 	var update interface{}
 	update = bson.D{
-		{"members", savedMembers},
+		{"$set", bson.D{
+			{"members", savedMembers},
+		}},
 	}
 	var filter interface{}
 	filter = bson.D{

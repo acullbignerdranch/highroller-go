@@ -13,12 +13,3 @@ func ConvertString(str string) int {
 	}
 	return id
 }
-
-//
-//func ConvertResultToString(inter interface{}) string {
-//	if oid, ok := inter.(primitive.ObjectID); ok {
-//		return c.JSON(http.StatusCreated, map[string]interface{}{
-//			"id": oid.Hex(),
-//		})
-//	}
-//}
