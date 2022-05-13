@@ -25,7 +25,7 @@ func HandleRouters() {
 	if port == "" {
 		port = "10000" // Default port if not specified
 	}
-	log.Fatal(http.ListenAndServe(port, myRouter))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), myRouter))
 }
 
 func getRoom(w http.ResponseWriter, r *http.Request) {
