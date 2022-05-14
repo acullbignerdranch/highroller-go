@@ -2,7 +2,6 @@ package driver
 
 import (
 	"context"
-	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -117,18 +116,18 @@ func UpdateOne(col string, filter interface{}, update interface{}) int64 {
 	return result.ModifiedCount
 }
 
-func ReadAll(col string) {
+func ReadAllUsers() []data.User {
 	client, ctx, cancel, err := Connect(dataBaseUri)
-	collection := client.Database(databaseName).Collection(col)
+	collection := client.Database(databaseName).Collection("user")
 
 	cursor, err := collection.Find(ctx, bson.M{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	var results []bson.M
+	var results []data.User
 	if err = cursor.All(ctx, &results); err != nil {
 		log.Fatal(err)
 	}
 	defer Close(client, ctx, cancel)
-	fmt.Printf("%+v\n", results) // Print with Variable Name
+	return results
 }

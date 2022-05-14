@@ -26,3 +26,8 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	userId := vars["userId"]
 	json.NewEncoder(w).Encode(service.ReadUser(userId))
 }
+
+func getUsers(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(service.ReadUsers())
+}

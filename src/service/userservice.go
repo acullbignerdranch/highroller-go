@@ -18,3 +18,7 @@ func CreateUser(user data.User) string {
 func ReadUser(userId string) data.User {
 	return driver.ReadOneUser(userId)
 }
+
+func ReadUsers() []data.User {
+	return driver.ReadAllUsers()
+}

@@ -15,6 +15,7 @@ import (
 
 func HandleRouters() {
 	myRouter := mux.NewRouter().StrictSlash(true)
+	myRouter.HandleFunc("/user/all", getUsers).Methods("GET")
 	myRouter.HandleFunc("/user/{userId}/room", getRooms).Methods("GET")
 	myRouter.HandleFunc("/user/{userId}/room", createRoom).Methods("POST")
 	myRouter.HandleFunc("/user/{userId}/room", joinRoom).Methods("PUT")
