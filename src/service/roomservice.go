@@ -27,7 +27,7 @@ func ReadRooms(userId string) []data.Room {
 
 func JoinRoom(room data.Room, userId string) data.Room {
 	savedRoom := ReadRoom(room.RoomId)
-	var savedMembers []string
+	savedMembers := make([]string, 0)
 	if savedRoom.Members != nil {
 		savedMembers = append(savedRoom.Members, userId)
 	} else {
