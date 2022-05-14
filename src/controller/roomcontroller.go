@@ -35,12 +35,14 @@ func getRoom(w http.ResponseWriter, r *http.Request) {
 }
 
 func getRooms(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	vars := mux.Vars(r)
 	userId := vars["userId"]
 	json.NewEncoder(w).Encode(service.ReadRooms(userId))
 }
 
 func joinRoom(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	vars := mux.Vars(r)
 	userId := vars["userId"]
 	reqBody, _ := ioutil.ReadAll(r.Body)
@@ -51,6 +53,7 @@ func joinRoom(w http.ResponseWriter, r *http.Request) {
 }
 
 func createRoom(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	vars := mux.Vars(r)
 	userId := vars["userId"]
