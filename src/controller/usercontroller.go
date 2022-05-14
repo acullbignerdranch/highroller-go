@@ -11,6 +11,7 @@ import (
 )
 
 func createUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	var user data.User
 	json.Unmarshal(reqBody, &user)
@@ -20,6 +21,7 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func getUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	vars := mux.Vars(r)
 	userId := vars["userId"]
 	json.NewEncoder(w).Encode(service.ReadUser(userId))
