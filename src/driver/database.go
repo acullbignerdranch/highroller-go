@@ -75,6 +75,9 @@ func ReadManyRooms(userId string) []data.Room {
 	}
 	for _, room := range results {
 		if room.HostId == userId || contains(room.Members, userId) {
+			if room.Rolls == nil {
+				room.Rolls = make(map[string]int, 0)
+			}
 			finalResults = append(finalResults, room)
 		}
 	}

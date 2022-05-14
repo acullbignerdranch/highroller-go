@@ -20,6 +20,7 @@ func HandleRouters() {
 	myRouter.HandleFunc("/user/{userId}/room", joinRoom).Methods("PUT")
 	myRouter.HandleFunc("/user/{userId}", getUser).Methods("GET")
 	myRouter.HandleFunc("/user/{userId}/room", deleteRoom).Methods("DELETE")
+	myRouter.HandleFunc("/user/{userId}/roll", saveRoll).Methods("PUT")
 	myRouter.HandleFunc("/user", createUser).Methods("POST")
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -65,6 +66,18 @@ func createRoom(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(room)
 }
 
+func saveRoll(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	vars := mux.Vars(r)
+	userId := vars["userId"]
+	var roll data.Roll
+	json.Unmarshal(reqBody, &roll)
+	roll.UserId = userId
+	service.SaveRoll(roll)
+	json.NewEncoder(w).Encode(roll)
+}
+
 func deleteRoom(w http.ResponseWriter, r *http.Request) {
 	// once again, we will need to parse the path parameters
 	vars := mux.Vars(r)
@@ -75,3 +88,11 @@ func deleteRoom(w http.ResponseWriter, r *http.Request) {
 	//TODO: delete the rooms from the database
 	fmt.Println(roomId)
 }
+
+/**
+userRolls[{
+userid
+roomid
+rolls[{[dice]}]
+}]
+*/
