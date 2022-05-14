@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func SaveRoll(roll data.Roll) {
+func SaveRoll(roll data.Roll) *data.Room {
 	var room = driver.ReadOneRoom(roll.RoomId)
 	if room.Rolls == nil {
 		room.Rolls = make(map[string]int)
@@ -30,4 +30,5 @@ func SaveRoll(roll data.Roll) {
 	} else {
 		fmt.Println("Roll already found:" + strconv.Itoa(value))
 	}
+	return &room
 }

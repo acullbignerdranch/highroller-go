@@ -74,8 +74,8 @@ func saveRoll(w http.ResponseWriter, r *http.Request) {
 	var roll data.Roll
 	json.Unmarshal(reqBody, &roll)
 	roll.UserId = userId
-	service.SaveRoll(roll)
-	json.NewEncoder(w).Encode(roll)
+	room := service.SaveRoll(roll)
+	json.NewEncoder(w).Encode(room)
 }
 
 func deleteRoom(w http.ResponseWriter, r *http.Request) {
