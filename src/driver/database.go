@@ -68,8 +68,8 @@ func ReadManyRooms(userId string) []data.Room {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var results []data.Room
-	var finalResults []data.Room
+	results := make([]data.Room, 0)
+	finalResults := make([]data.Room, 0)
 	if err = cursor.All(ctx, &results); err != nil {
 		log.Fatal(err)
 	}
